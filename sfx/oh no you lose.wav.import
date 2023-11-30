@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cyvaa0mrbj8wv"
+path="res://.godot/imported/oh no you lose.wav-9b2ca86686ce41fefc83da556f3ff597.sample"
+
+[deps]
+
+source_file="res://sfx/oh no you lose.wav"
+dest_files=["res://.godot/imported/oh no you lose.wav-9b2ca86686ce41fefc83da556f3ff597.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
