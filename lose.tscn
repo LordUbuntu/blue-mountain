@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://dim5iomvx655k"]
+
+[ext_resource type="Script" path="res://lose.gd" id="1_hlyqs"]
+[ext_resource type="AudioStream" uid="uid://cigbdgd248f8y" path="res://sfx/lose.wav" id="2_k2aur"]
+[ext_resource type="AudioStream" uid="uid://cyvaa0mrbj8wv" path="res://sfx/oh no you lose.wav" id="3_ro8c8"]
+[ext_resource type="AudioStream" uid="uid://bvm6cfmx3rbqw" path="res://sfx/boop.wav" id="4_5seei"]
+[ext_resource type="AudioStream" uid="uid://c72r3ncw6n225" path="res://sfx/ping.wav" id="5_3vm87"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hlyqs")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 197.0
+offset_bottom = 65.0
+theme_override_font_sizes/font_size = 13
+text = "Oh no! You lost!
+How will your friend
+climb the mountain now?"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 71.0
+offset_right = 127.0
+offset_bottom = 96.0
+theme_override_font_sizes/font_size = 12
+text = "Oh No!
+"
+
+[node name="LoseSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_k2aur")
+
+[node name="LoseVoice" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ro8c8")
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_5seei")
+
+[node name="SelectSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_3vm87")
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
+[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
