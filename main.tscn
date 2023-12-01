@@ -1,0 +1,258 @@
+[gd_scene load_steps=29 format=3 uid="uid://c5i12isro6a38"]
+
+[ext_resource type="Texture2D" uid="uid://cckeikmamcdt7" path="res://art/blue montain beach_0001.png" id="1_s1wvd"]
+[ext_resource type="Texture2D" uid="uid://cqgmpi2vmssfo" path="res://art/blue montain beach_0002.png" id="2_mq5lp"]
+[ext_resource type="Texture2D" uid="uid://b6rdqiof11aa0" path="res://art/hiker.png" id="3_tff5s"]
+[ext_resource type="Script" path="res://Hiker.gd" id="3_w2hv0"]
+[ext_resource type="Texture2D" uid="uid://dmadr6eikv0jr" path="res://art/snake.png" id="4_py10l"]
+[ext_resource type="AudioStream" uid="uid://cexaqjrqbjf5i" path="res://sfx/ouch.wav" id="6_b1xmt"]
+[ext_resource type="AudioStream" uid="uid://caiba6g4t8u2t" path="res://music/main_theme.wav" id="8_bjf1i"]
+[ext_resource type="AudioStream" uid="uid://da47wsmeph22u" path="res://sfx/catch.wav" id="8_ki63b"]
+[ext_resource type="PackedScene" uid="uid://cyh7dkofkln2p" path="res://fish.tscn" id="9_54los"]
+[ext_resource type="Texture2D" uid="uid://bohkd7acpkwva" path="res://art/health.png" id="10_ikshd"]
+[ext_resource type="PackedScene" uid="uid://bjwwwoeovwerp" path="res://enemy.tscn" id="10_ms7gj"]
+[ext_resource type="Script" path="res://HUD.gd" id="10_nj488"]
+[ext_resource type="Texture2D" uid="uid://bvu4t4hcpsiwk" path="res://art/food.png" id="11_nxw6v"]
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_bmobp"]
+frames = 2
+frame_0/texture = ExtResource("1_s1wvd")
+frame_1/texture = ExtResource("2_mq5lp")
+frame_1/duration = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e3u08"]
+size = Vector2(8, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c63ho"]
+atlas = ExtResource("4_py10l")
+region = Rect2(0, 0, 8, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ubngg"]
+atlas = ExtResource("4_py10l")
+region = Rect2(8, 0, 8, 6)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hp6o0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c63ho")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ubngg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m6gfu"]
+size = Vector2(8, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gcr2p"]
+atlas = ExtResource("3_tff5s")
+region = Rect2(0, 0, 8, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_34xxl"]
+atlas = ExtResource("3_tff5s")
+region = Rect2(8, 0, 8, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p2h00"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gcr2p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_34xxl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f5uc8"]
+size = Vector2(159, 135)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2mo66"]
+size = Vector2(87, 251)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7cjmc"]
+size = Vector2(456, 141)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gp6t8"]
+size = Vector2(86, 249)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5dla1"]
+size = Vector2(453, 20)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dvfwp"]
+bg_color = Color(0, 0, 0, 0.411765)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="Node" type="Node"]
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(-30, -10)
+
+[node name="Theme" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_bjf1i")
+volume_db = -10.0
+autoplay = true
+
+[node name="Theme2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_bjf1i")
+volume_db = -10.0
+autoplay = true
+
+[node name="Background" type="TextureRect" parent="."]
+offset_left = -160.0
+offset_top = -107.0
+offset_right = 280.0
+offset_bottom = 130.0
+texture = SubResource("AnimatedTexture_bmobp")
+stretch_mode = 2
+
+[node name="Snake" type="CharacterBody2D" parent="."]
+position = Vector2(-30, -10)
+script = ExtResource("3_w2hv0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Snake"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_e3u08")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Snake"]
+remote_path = NodePath("../../Camera")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Snake"]
+position = Vector2(0, 3)
+sprite_frames = SubResource("SpriteFrames_hp6o0")
+autoplay = "default"
+frame_progress = 0.0239969
+
+[node name="OuchSound" type="AudioStreamPlayer2D" parent="Snake"]
+position = Vector2(30, 10)
+stream = ExtResource("6_b1xmt")
+
+[node name="CatchSound" type="AudioStreamPlayer2D" parent="Snake"]
+position = Vector2(30, 10)
+stream = ExtResource("8_ki63b")
+volume_db = 5.0
+
+[node name="Hiker" type="CharacterBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hiker"]
+position = Vector2(-55, -8)
+shape = SubResource("RectangleShape2D_m6gfu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Hiker"]
+position = Vector2(-55, -8)
+sprite_frames = SubResource("SpriteFrames_p2h00")
+autoplay = "default"
+frame_progress = 0.0467491
+
+[node name="Beach" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Beach"]
+position = Vector2(-80.5, 65.5)
+shape = SubResource("RectangleShape2D_f5uc8")
+
+[node name="Boundary" type="StaticBody2D" parent="."]
+
+[node name="Left" type="CollisionShape2D" parent="Boundary"]
+position = Vector2(-133.5, 11.5)
+shape = SubResource("RectangleShape2D_2mo66")
+
+[node name="Bottom" type="CollisionShape2D" parent="Boundary"]
+position = Vector2(58, 76.5)
+shape = SubResource("RectangleShape2D_7cjmc")
+
+[node name="Right" type="CollisionShape2D" parent="Boundary"]
+position = Vector2(252, 12.5)
+shape = SubResource("RectangleShape2D_gp6t8")
+
+[node name="Top" type="CollisionShape2D" parent="Boundary"]
+position = Vector2(60.5, -112)
+shape = SubResource("RectangleShape2D_5dla1")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("10_nj488")
+
+[node name="Panel" type="Panel" parent="HUD"]
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 49.0
+offset_bottom = 20.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dvfwp")
+
+[node name="HealthImage" type="TextureRect" parent="HUD"]
+offset_left = 7.0
+offset_top = 8.0
+offset_right = 16.0
+offset_bottom = 17.0
+texture = ExtResource("10_ikshd")
+
+[node name="HealthCount" type="Label" parent="HUD/HealthImage"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = -5.0
+offset_right = 18.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 13
+text = "3
+"
+
+[node name="FoodImage" type="TextureRect" parent="HUD"]
+offset_left = 27.0
+offset_top = 8.0
+offset_right = 37.0
+offset_bottom = 17.0
+texture = ExtResource("11_nxw6v")
+
+[node name="FoodCount" type="Label" parent="HUD/FoodImage"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = -5.0
+offset_right = 20.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 13
+text = "5"
+
+[node name="Fishes" type="Node" parent="."]
+
+[node name="Fish" parent="Fishes" instance=ExtResource("9_54los")]
+position = Vector2(67, 1)
+
+[node name="Fish2" parent="Fishes" instance=ExtResource("9_54los")]
+position = Vector2(-79, 0)
+
+[node name="Fish3" parent="Fishes" instance=ExtResource("9_54los")]
+position = Vector2(100, 1)
+
+[node name="Fish4" parent="Fishes" instance=ExtResource("9_54los")]
+position = Vector2(-16, 0)
+
+[node name="Fish5" parent="Fishes" instance=ExtResource("9_54los")]
+position = Vector2(13, 0)
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("10_ms7gj")]
+position = Vector2(-8, 2)
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource("10_ms7gj")]
+position = Vector2(19, 0)
+
+[node name="Enemy3" parent="Enemies" instance=ExtResource("10_ms7gj")]
+position = Vector2(84, 2)
+
+[connection signal="catch" from="Fishes/Fish" to="HUD" method="_on_fish_catch"]
+[connection signal="catch" from="Fishes/Fish2" to="HUD" method="_on_fish_catch"]
+[connection signal="catch" from="Fishes/Fish3" to="HUD" method="_on_fish_catch"]
+[connection signal="catch" from="Fishes/Fish4" to="HUD" method="_on_fish_catch"]
+[connection signal="catch" from="Fishes/Fish5" to="HUD" method="_on_fish_catch"]
+[connection signal="attack" from="Enemies/Enemy" to="HUD" method="_on_enemy_attack"]
+[connection signal="attack" from="Enemies/Enemy2" to="HUD" method="_on_enemy_attack"]
+[connection signal="attack" from="Enemies/Enemy3" to="HUD" method="_on_enemy_attack"]
