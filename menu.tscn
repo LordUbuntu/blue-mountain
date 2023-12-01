@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://i4kc4105cvys"]
+
+[ext_resource type="Script" path="res://menu.gd" id="1_41w7k"]
+[ext_resource type="AudioStream" uid="uid://bvm6cfmx3rbqw" path="res://sfx/boop.wav" id="2_0v68u"]
+[ext_resource type="AudioStream" uid="uid://c72r3ncw6n225" path="res://sfx/ping.wav" id="3_mj4y3"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_41w7k")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+offset_right = 176.0
+offset_bottom = 68.0
+theme_override_font_sizes/font_size = 10
+text = "Your friend needs food for their
+attempt at scaling blue mountain.
+Help them get some food, but watch
+out for the scaly fiends in the water!"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+offset_left = 40.0
+offset_top = 72.0
+offset_right = 140.0
+offset_bottom = 103.0
+text = "Let's Go!"
+icon_alignment = 1
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_0v68u")
+
+[node name="SelectSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_mj4y3")
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
+[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
